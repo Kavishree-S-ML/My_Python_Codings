@@ -14,16 +14,16 @@ output['everything'] = False
 import logging
 import logging.handlers
 
-hostname = "10.11.0.81"
-username = "root"
-password = "maplelabs"
+hostname = <host_ip>
+username = <host_username>
+password = <host_pswd>
 remote_path = "~/."
 local_path = "./test_blockStreamer.py"
 current_port = 54000
-current_ip = "10.11.0.161"
-vm_name = "SEETestGrpHxBenchVm1"
-datastore = "Manirama_Datastore"
-filename = "SEETestGrpHxBenchVm1/SEETestGrpHxBenchVm1_1.vmdk"
+current_ip = <current_Server_ip>
+vm_name = <vm_name>
+datastore = <datastore_name>
+filename = <vm_name/file_name>
 sampling_amount = 1
 
 file_size = None

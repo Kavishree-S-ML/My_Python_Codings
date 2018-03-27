@@ -1,14 +1,14 @@
 import subprocess
 import sys
-hostname = "10.11.0.81"
-username = "root"
-pwd = "maplelabs"
+hostname = <host_ip>
+username = <host_username>
+pwd = <host_pswd>
 local_path = "./test_socket_client.py"
 filename = "test_socket_client.py"
 
 server_data = []
 server_info = {}
-server_info['current_ip'] = "10.11.0.161"
+server_info['current_ip'] = <current_server_ip>
 server_info['port'] = 12678
 server_data.append(server_info)
 print server_data

@@ -37,7 +37,7 @@ class VCenterServerMonitor:
             raise Exception("INVALID_CREDENTIAL")
         except ConnectionError:
             print "Connection Error"
-            raise Exception(Connection Error)
+            raise Exception("Connection Error")
         except Exception as exc:
             if (isinstance(exc, vim.fault.HostConnectFault) and
                     '[SSL: CERTIFICATE_VERIFY_FAILED]' in exc.msg):
@@ -130,3 +130,7 @@ def get_disk_stats(data):
     if not vm_disk_stats:
         raise MonitorException(ESXISTATERROR)
     return vm_disk_stats
+
+data = {}
+data['vm_uuid'] = "5249152a-f3eb-ae6d-a3b4-b7b3a2bef9aa"
+get_disk_stats(data)

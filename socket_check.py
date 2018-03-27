@@ -3,10 +3,10 @@ import subprocess
 import time
 import os
 import sys
-hostname = "10.11.0.81"
-current_port = 55009
-password = "maplelabs"
-username = "root"
+hostname = <host_ip>
+current_port = 5509
+password = <host_pswd>
+username = <host_username>
 filename = "test_socket_client.py"
 
 def init_listen_socket(current_ip, current_port):

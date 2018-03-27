@@ -3,15 +3,15 @@ import socket
 import sys
 import time
 #from fabric.api import *
-hostname = "10.11.0.81"
-username = "root"
-pwd = "maplelabs"
+hostname = <host_ip>
+username = <host_username>
+pwd = <host_pswd>
 remote_path = "~/."
 local_path = "./test_socket_client.py"
 filename = "test_socket_client.py"
 current_port = 12000
-current_ip = "10.11.0.161"
-process_method = "jhcsjc"
+current_ip = <current_server_ip>
+process_method = "Fabric"
 
 def init_listen_socket(current_ip, current_port):
     listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
