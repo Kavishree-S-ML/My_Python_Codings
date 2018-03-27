@@ -39,20 +39,20 @@ try:
             """
             Check if zero-filled string, skip and continue.
             """
-	     print piece
-	     piece_sa = int(piece,2)
-	     #piece_sa = bin(int(binascii.hexlify(piece),16))
-	    print piece_sa
-	    print type(piece_sa)
-	    a = [1,2,3,0]
+        print piece
+        piece_sa = int(piece,2)
+        #piece_sa = bin(int(binascii.hexlify(piece),16))
+        print piece_sa
+        print type(piece_sa)
+        a = [1,2,3,0]
             #if all(byte for byte in piece): print "Zero blocks"
-	    #for i in piece_sa:
-	    #	print i
-            if piece_sa == 0 : print "HAI"
-	    else: print "Hello"
+        #for i in piece_sa:
+        #	print i
+        if piece_sa == 0 : print "HAI"
+        else: print "Hello"
             time.sleep(1)
             #m = hashlib.md5()
-            
+
             for index in range(0, 512):
                 crc = zlib.crc32(piece[0 + index * 8192:8192 + index * 8192], crc)
                 if not crc & 0xffffffff in dedupe_keys:
@@ -73,7 +73,7 @@ try:
                 else:
                     total_dupe_blocks += 1
                     print ("otla dedupe blocks : %s" %str(total_dupe_blocks))
-	    """
+        """
 except Exception, err:
     logger.error(str(err))
     raise Exception(err)
