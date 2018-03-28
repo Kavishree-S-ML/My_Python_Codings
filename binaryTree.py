@@ -34,6 +34,7 @@ def inorder(root):
         print root.value,
         inorder(root.right)
 
+
 def inOrderFunc(root):
     temp = root
     s = []
@@ -51,12 +52,14 @@ def inOrderFunc(root):
             else:
                 done = 1
 
+
 root = Node(5)
 insert(root, Node(3))
 insert(root, Node(7))
 insert(root, Node(4))
 insert(root, Node(2))
 insert(root, Node(6))
+print "List (Inorder Function with Recursive method) : ",
 inorder(root)
-print "\n"
+print "\nList (w/o Recursive method) : ",
 inOrderFunc(root)
