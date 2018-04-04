@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman Game Starts</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="game_page.css" />
+</head>
+<script type="text/javascript">
+    var guesses = [];
+    var guess;
+    var guess_count = 6;
+    var words;
+    words = ["secret", "hangman", "congratulations"];
+    var secret_word = words[Math.floor(Math.random() * words.length)];
+    console.log(secret_word)
+    var number = secret_word.length;
+    var new_word = secret_word;
+
+    function secretWord() {
+        for (var i = 0; i < number; i++) {
+            guess = document.createElement('input')
+            guess.setAttribute('id','my_word')
+            guess.setAttribute('class','secret_word')
+            guess.setAttribute('type','text')
+            guess.setAttribute('value','_')
+            document.getElementById('word').appendChild(guess)
+            guesses.push(guess)
+            /*
+            var existingSelection = document.getElementById('word').innerHTML;
+            document.getElementById('word').innerHTML = existingSelection + ' ' + '<input type="text" class ="secret_word" maxlength="1">' */
+        }
+    }
+
+    function start_game(correct, guess_val) {
+        if (correct){
+            for (var i=0; i<number; i++) {
+                new_word = new_word.replace(guess_val, '')
+            }
+            if (new_word.length === 0){
+               testwindow = window.open("hangman_win.html", "_self");
+            }
+        } else {
+            guess_count -= 1;
+            if (guess_count <0) {
+                //alert("Sorry...!! you lost the match")
+                testwindow = window.open("hangman_end.html", "_self");
+            }
+        }
+    }
+    function charSelect(btn_id) {
+        var btn_val;
+        var guess_crct;
+        btn_val = document.getElementById(btn_id).value;
+        btn_val = btn_val.toLowerCase();
+        for (var i=0; i<number; i++){
+            if (btn_val === secret_word[i]) {
+                guesses[i].setAttribute('value',btn_val)
+                guess_crct = true
+            } else {
+                continue;
+            }
+        }
+        start_game(guess_crct, btn_val)
+    }
+</script>
+<script>
+    window.onload = function ()
+    {
+        var canvas  = document.getElementById("cvs");
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+        img.src = 'hangman_smiley.png';
+        img.onload = function (e)
+        {
+            context.drawImage(img, 10, 10,256,256);
+        }
+    }
+</script>
+<body>
+    <h2> GAME STARTS.... </h2>
+    <body onload="secretWord()"/>
+    <div id="word"></div>
+    <div id="game_end"> <a href="hangman_end.html"/> </div>
+</body>
+<body onload="draw();">
+   <canvas id="canvas" width="150" height="150" style="border:1px solid #d3d3d3;"></canvas>
+</body>
+<body>
+    <input type="button" class="text_box" value="A" id='a' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="B" id='b' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="C" id='c' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="D" id='d' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="E" id='e' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="F" id='f' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="G" id='g' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="H" id='h' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="I" id='i' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="J" id='j' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="K" id='k' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="L" id='l' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="M" id='m' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="N" id='n' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="O" id='o' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="P" id='p' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="Q" id='q' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="R" id='r' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="S" id='s' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="T" id='t' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="U" id='u' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="V" id='v' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="W" id='w' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="X" id='x' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="Y" id='y' onclick="charSelect(id)"/>
+    <input type="button" class="text_box" value="Z" id='z' onclick="charSelect(id)"/>
+</body>
+</html>

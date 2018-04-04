@@ -1,0 +1,47 @@
+/* HANGMAN game's main page*/
+
+body {
+ background-color: #2e37ff;
+ color: #1c3a12;
+}
+
+h2 {
+ color: #1c3a12;
+ text-align: center;
+ font: italic 200% fantasy;
+}
+
+.image1 {
+    margin: auto;
+    width: 50px;
+}
+
+.image2 {
+    /* Display the image at the center of the page */
+    display: block;
+    margin: auto;
+    width: 30%;
+}
+.play-button {
+    background-color: chocolate;
+    float: right;
+    font-style: italic;
+    font-size: 35px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: width 2s, height 4s;
+}
+.play-button:hover {
+    opacity: 1;
+    background-color: darkgoldenrod;
+    font-size: 45px;
+}
+.play-button-img {
+    width: 25px;
+    height: 25px;
+    transition: width 2s, height 4s;
+}
+
+

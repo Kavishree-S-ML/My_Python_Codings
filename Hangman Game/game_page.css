@@ -1,0 +1,56 @@
+/* HANGMAN Game's start page */
+
+body {
+    background-color: darkgoldenrod;
+}
+
+h2 {
+    font-style: oblique;
+    font-size: xx-large;
+    text-align: center;
+    font-family: "Comic Sans MS";
+}
+
+.secret_word{
+    /* Input text box style */
+    background: transparent;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom-style: dashed;
+    outline: none;
+    /*display: block;*/
+    display:inline-block;
+    margin-top: 50px;
+    margin-left: 40px;
+    /* Input text style */
+    font-size: xx-large;
+    font-family: "Comic Sans MS";
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+
+.text_box{
+    background-color: darkgreen;
+    justify-content: center;
+    font-family: "Comic Sans MS";
+    font-size: 35px;
+    text-align: center;
+    border: none;
+    float: left;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.text_box:hover {
+    background-color: blue;
+}
+
+.game_end {
+    background-color: black;
+    font-size: xx-large;
+    font-family: "Cordia New";
+    text-align: center;
+    color: aliceblue;
+}
