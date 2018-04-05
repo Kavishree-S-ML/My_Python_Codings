@@ -18,6 +18,7 @@ body::after {
     z-index: -1; /* make the image to set in the background and content in the top*/
     background-size:cover;
 }
+
 #home .title {
     font-family: "Comic Sans MS";
     color: black;
@@ -78,6 +79,57 @@ body::after {
     cursor: pointer;
 }
 
+#popup {
+    visibility: hidden;
+    width: 20%;
+    margin: auto;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    background: dimgray;
+    padding: 25px;
+    border: 2px solid #fff;
+    border-radius: 15px/15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#win {
+    visibility: hidden;
+    width: 40%;
+    height: 50%;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    background: url("happy_smiley.png") no-repeat;
+    background-size: 600px 400px;
+    padding: 25px;
+    border: 2px solid #fff;
+    border-radius: 15px/15px;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+    font-size: xx-large;
+    text-align: center;
+}
+
+#lost {
+    visibility: hidden;
+    width: 40%;
+    height: 50%;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    background: url("sad-smiley.png") no-repeat;
+    background-size: 600px 400px;
+    padding: 25px;
+    border: 2px solid #fff;
+    border-radius: 15px/15px;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+    font-size: xx-large;
+    text-align: center;
+}
+
 .secret_word {
     border: none;
     display: inline-block; /* display the box in the same line*/
@@ -106,8 +158,5 @@ body::after {
     top: 24%;
     width: 30px;
     height: 30px;
-}
-.hint_value {
-    display: none;
 }
 
