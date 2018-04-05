@@ -12,7 +12,7 @@
     var guess;
     var guess_count = 6;
     var words;
-    words = ["secret", "hangman", "congratulations"];
+    words = ["secret", "hangman", "congratulations","kavishree"];
     var secret_word = words[Math.floor(Math.random() * words.length)];
     console.log(secret_word)
     var number = secret_word.length;
@@ -38,15 +38,16 @@
             for (var i=0; i<number; i++) {
                 new_word = new_word.replace(guess_val, '')
             }
+            console.log(new_word)
+            /*
             if (new_word.length === 0){
                testwindow = window.open("hangman_win.html", "_self");
-            }
-        } else {
-            guess_count -= 1;
-            if (guess_count <0) {
-                //alert("Sorry...!! you lost the match")
-                testwindow = window.open("hangman_end.html", "_self");
-            }
+            }else {
+                guess_count -= 1;
+                if (guess_count <0) {
+                    //alert("Sorry...!! you lost the match")
+                    testwindow = window.open("hangman_end.html", "_self");
+             } */
         }
     }
     function charSelect(btn_id) {
@@ -65,6 +66,7 @@
         start_game(guess_crct, btn_val)
     }
 </script>
+<!--
 <script>
     window.onload = function ()
     {
@@ -79,15 +81,18 @@
         }
     }
 </script>
+-->
 <body>
     <h2> GAME STARTS.... </h2>
     <body onload="secretWord()"/>
     <div id="word"></div>
     <div id="game_end"> <a href="hangman_end.html"/> </div>
 </body>
+<!--
 <body onload="draw();">
    <canvas id="canvas" width="150" height="150" style="border:1px solid #d3d3d3;"></canvas>
 </body>
+-->
 <body>
     <input type="button" class="text_box" value="A" id='a' onclick="charSelect(id)"/>
     <input type="button" class="text_box" value="B" id='b' onclick="charSelect(id)"/>

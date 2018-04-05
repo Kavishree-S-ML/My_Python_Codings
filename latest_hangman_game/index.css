@@ -1,0 +1,113 @@
+body {
+    background-color: darkgoldenrod;
+}
+
+#home {
+    background-color: none;
+}
+
+body::after {
+    content: ""; /* If not, then its not displaying the image */
+    background: url("hangman_bg.png");
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1; /* make the image to set in the background and content in the top*/
+    background-size:cover;
+}
+#home .title {
+    font-family: "Comic Sans MS";
+    color: black;
+    font-size: 40px;
+    margin: auto;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+@-webkit-keyframes shake {
+    0% {-webkit-transform: rotate(15deg); -webkit-animation-delay: 0.5s; font-size: 40px; font-weight: bold;}
+    10% {-webkit-transform: rotate(0deg); font-size: 40px; font-weight: bold;}
+    20% {-webkit-transform: rotate(-15deg); -webkit-animation-direction: alternate; font-size: 40px; font-weight: bold;}
+    30% {-webkit-transform: rotate(0deg); -webkit-animation-direction: alternate; font-size: 40px; font-weight: bold;}
+}
+
+#home .hangman_image {
+    margin: auto;
+    position: absolute;
+    top: 35%;
+    left: 37%;
+    width: 20px;
+    height: 20px;
+}
+
+#home .play_button {
+    background-color: red;
+    float: right;
+    font-style: italic;
+    font-size: 35px;
+    border-radius: 50%;
+    border: none;
+    margin: auto;
+    position: absolute;
+    top: 80%;
+    left: 65%;
+    cursor: pointer;
+    -webkit-animation: shake 2s ease-in-out infinite;
+    -webkit-animation-delay: 1s;
+}
+
+#home .play_image {
+    width: 25px;
+    height: 25px;
+}
+
+.letters {
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    background-color: -moz-buttonhovertext;
+    border-style: ridge;
+    font-size: 25px;
+    margin-top: 8%;
+    margin-right: 0.7%;
+    position: relative;
+    left: 4%;
+    cursor: pointer;
+}
+
+.secret_word {
+    border: none;
+    display: inline-block; /* display the box in the same line*/
+    background-color: dimgray;
+    margin-top: 20%;
+    position: relative;
+    left: 5%;
+    width: 50px; /* width and height of the text box */
+    height: 50px;
+    /* Font style in the text box */
+    font-size: 30px;
+    font-family: italic;
+    text-align: center;
+}
+
+#hint {
+    position: absolute;
+    font-size: 20px;
+    font-family: "Comic Sans MS";
+    text-align: center;
+    background-color: darkgray;
+    cursor: pointer;
+    display: none;
+    left: 1%;
+    right: 0;
+    top: 24%;
+    width: 30px;
+    height: 30px;
+}
+.hint_value {
+    display: none;
+}
+

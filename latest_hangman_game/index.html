@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HANGMAN GAME</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="index.css" />
+    <script type="text/javascript" src="./hangman.js"></script>
+</head>
+<script>
+
+</script>
+<body>
+    <div id="home">
+        <div class="title">HANGMAN</div>
+        <div class="hangman_image"><img src="hangman_image.png"></div>
+        <div class="play_button" onclick="start_game()"> Play
+        <img src="play.png" class="play_image"/></div>
+    </div>
+    <div id="game">
+        <div id="word"></div>
+        <div id="keyboard"></div>
+        <div id="image"></div>
+        <div id="hint" onclick="get_hint()"> ?
+            <div class="hint_value"></div>
+        </div>
+    </div>
+</body>
+</html>
