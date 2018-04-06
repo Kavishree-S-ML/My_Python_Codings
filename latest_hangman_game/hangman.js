@@ -55,7 +55,6 @@ function createWord() {
 }
 function check_letter(btn) {
     var guessed_letter;
-    var hint;
     guessed_letter = btn.innerText;
     var guess_value = false;
     if (guessed_list.indexOf(guessed_letter) === -1) {
@@ -71,30 +70,29 @@ function check_letter(btn) {
             guess_count -= 1;
         }
         if (guess_count === 3) {
-            console.log("create hint button")
-            console.log(guess_count)
-            hint_opt = document.getElementById("hint");
-            console.log(hint_opt)
-            hint_opt[0].style.display='block';
-            //get_hint(hint_opt)
+            hint = document.getElementsByClassName("hint")[0];
+            hint.style.visibility = "visible";
+            get_hint();
         }
         if (!(guess_value) && guess_count<0) {
             document.getElementById("lost").style.visibility = "visible";
             //game_end()
         }
         if (replaced_word.length === 0) {
-            console.log("win")
             document.getElementById("win").style.visibility = "visible";
             //game_end()
         }
     }
 }
-function get_hint() {
-    if (guess_count === 3) {
-        //alert(secret_word[1])
-        console.log(document.getElementsById("hint"))
-        document.getElementsById("hint").style = "display: block"
-    }
+function get_hint(){
+        var hint_value = document.getElementsByClassName("hint_value")[0]
+        hint_value.innerText = "Hint: " + secret_word[1]
+        hint.onclick = function() {
+            hint_value.style.visibility = "visible";
+        }
+        hint.onmouseout = function() {
+            hint_value.style.visibility = "hidden";
+        }
 }
 function game_end(){
     reset();

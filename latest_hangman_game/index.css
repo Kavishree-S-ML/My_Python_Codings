@@ -145,14 +145,15 @@ body::after {
     text-align: center;
 }
 
-#hint {
+.hint {
+    visibility: hidden;
     position: absolute;
     font-size: 20px;
     font-family: "Comic Sans MS";
     text-align: center;
     background-color: darkgray;
     cursor: pointer;
-    display: none;
+    border-style: double;
     left: 1%;
     right: 0;
     top: 24%;
@@ -160,3 +161,19 @@ body::after {
     height: 30px;
 }
 
+.hint_value {
+    visibility: hidden;
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    padding: 25px;
+    border: 2px solid #fff;
+    border-radius: 15px/15px;
+    font-weight: bold;
+    font-family: italic;
+    font-size: large;
+    text-align: center;
+    background-color: dimgray;
+}
