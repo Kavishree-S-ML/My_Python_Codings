@@ -22,11 +22,20 @@
         <div id="word"></div>
         <div id="keyboard"></div>
         <div id="popup">Letter already Guessed...!!!</div>
-        <div id="win">CONGRATULATION...!!! You win the game</div>
-        <div id="lost">SORRY...!! You lost</div>
         <div id="image"></div>
+        <div id="hangman_draw">    
+            <canvas id="myCanvas"></canvas>
+        </div>
         <div class="hint" onclick="get_hint"> ? </div>
         <div class="hint_value"></div>
+        <div id="win">
+            <div class="title">CONGRATULATION...!!! You win the game"</div>
+            <div class="play_button" onclick="game_restart()"> Play Again </div>
+        </div>
+        <div id="lost">
+            <div class="title">SORRY...!! You lost</div>
+            <div class="play_button" onclick="game_restart()"> Play Again </div>
+        </div>
     </div>
 </body>
 </html>

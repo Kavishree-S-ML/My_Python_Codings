@@ -96,13 +96,13 @@ body::after {
 
 #win {
     visibility: hidden;
-    width: 40%;
+    width: 50%;
     height: 50%;
     position: absolute;
     top: 20%;
     left: 30%;
     background: url("happy_smiley.png") no-repeat;
-    background-size: 600px 400px;
+    background-size: 800px 400px;
     padding: 25px;
     border: 2px solid #fff;
     border-radius: 15px/15px;
@@ -111,16 +111,31 @@ body::after {
     font-size: xx-large;
     text-align: center;
 }
+#win .play_button {
+    background-color: red;
+    float: right;
+    font-style: italic;
+    font-size: 35px;
+    border-radius: 50%;
+    border: none;
+    margin: auto;
+    position: absolute;
+    top: 80%;
+    left: 65%;
+    cursor: pointer;
+    -webkit-animation: shake 2s ease-in-out infinite;
+    -webkit-animation-delay: 1s;
+}
 
 #lost {
     visibility: hidden;
-    width: 40%;
+    width: 50%;
     height: 50%;
     position: absolute;
     top: 20%;
     left: 30%;
     background: url("sad-smiley.png") no-repeat;
-    background-size: 600px 400px;
+    background-size: 800px 400px;
     padding: 25px;
     border: 2px solid #fff;
     border-radius: 15px/15px;
@@ -128,8 +143,23 @@ body::after {
     font-family: "Comic Sans MS";
     font-size: xx-large;
     text-align: center;
+    background-color : transparent;
 }
-
+#lost .play_button {
+    background-color: red;
+    float: right;
+    font-style: italic;
+    font-size: 35px;
+    border-radius: 50%;
+    border: none;
+    margin: auto;
+    position: absolute;
+    top: 80%;
+    left: 65%;
+    cursor: pointer;
+    -webkit-animation: shake 2s ease-in-out infinite;
+    -webkit-animation-delay: 1s;
+}
 .secret_word {
     border: none;
     display: inline-block; /* display the box in the same line*/
@@ -176,4 +206,18 @@ body::after {
     font-size: large;
     text-align: center;
     background-color: dimgray;
+}
+
+#hangman_draw {
+    visibility: hidden;
+    position: absolute;
+    top: 1%;
+    left: 70%;
+}
+#myCanvas {
+    visibility: hidden;
+    width: 300px;
+    height: 300px;
+    border: ridge black;
+    background-color: aliceblue
 }
