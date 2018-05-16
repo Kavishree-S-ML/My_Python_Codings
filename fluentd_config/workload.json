@@ -1,0 +1,36 @@
+{
+  "targets": [
+    {
+      "type": "elasticsearch",
+      "config": {
+        "index": "fluentd",
+        "host": "10.11.100.52",
+        "port": 9200
+      },
+      "name": "default-es"
+    }
+  ],
+  "logging": {
+            "tags": {
+              "appName": "testing",
+              "uuid": "50011930-610a-e61f-27ad-8c612d42255d",
+              "Name": "deepinsight-ramya"
+            },
+            "enabled": true,
+            "targets": [
+              "default-es"
+            ],
+            "plugins": [
+              {
+                "config": {
+                    "filters":{
+                        "level" : "LOG"
+                    }
+                },
+                "name": "linux-syslog"
+              }
+            ]
+          },
+  "name": "default",
+  "tags": {}
+}
