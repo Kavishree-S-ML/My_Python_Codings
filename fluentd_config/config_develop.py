@@ -1,6 +1,6 @@
 import yaml, json
 
-file_name = "./linux_syslog.yaml"
+file_name = "./logging_mapping.yaml"
 plugin_post_data = []
 plugins = []
 
@@ -16,6 +16,7 @@ def read_yaml_file(filename):
         try:
             return yaml.load(stream)
         except yaml.YAMLError as exc:
+            print exc
             return {}
 
 def get_fluentd_plugins_mapping():
@@ -27,7 +28,7 @@ def configure_plugin_data():
     """
     # Read template config, merge them with plugin config and generate
     # plugin params
-    x_comp_plugins = list()
+    print('1. Configuring the plugin data.')
     for x_plugin in logger_user_input.get('logging',{}).get('plugins', []):
         temp = dict()
         temp['source'] = {}
@@ -48,6 +49,8 @@ def configure_plugin_data():
             plugins.append(temp)
             continue
 
+        if "rewrite_tag_filter" in plugin:
+            temp['rewrite_tag_filter'] = plugin.get('rewrite_tag_filter')
         temp['usr_filter'] = {}
         if x_plugin.get('config', {}).get('filters'):
             for key, value in x_plugin['config']['filters'].items():
@@ -56,9 +59,6 @@ def configure_plugin_data():
                 else:
                     temp['usr_filter'][key] = '(.*(' + str(value) + ').*?)'
         plugins.append(temp)
-    print('Plugin data successfully Configured.')
-    print('************************************')
-    print plugins
     return True
 
 def configure_plugin_file(data):
@@ -67,8 +67,8 @@ def configure_plugin_file(data):
     :param data: Generate plugin data based on param passed and push config to file
     :return: True if operation is successful
     """
+    print('2. Configuring the plugin File.')
     # Add source.
-    print("Configure plugin file, data :" + str(json.dumps(data)))
     source_tag = str()
     lines = ['<source>']
     for key, val in data.get('source', {}).iteritems():
@@ -82,24 +82,52 @@ def configure_plugin_file(data):
     lines.append('\t' + "</parse>")
 
     lines.append('</source>')
-
-    # Add parser filter. if data.get('match').has_key('tag'):
-    if 'tag' in data.get('match'):
-        lines.append('\n<filter ' + source_tag + '.' + data.get('match').get('tag', []) + '>')
+   
+    # Add rewrite tag filter
+    if "rewrite_tag_filter" in data:
+        lines.append('\n<match ' + source_tag + '*>')
+        lines.append('\t' + '@type rewrite_tag_filter')
+        for key,val in data.get('rewrite_tag_filter',{}).iteritems():
+            source_tag = data.get('rewrite_tag_filter').get('tag') + '.'
+            if key == 'tag':
+                continue
+            lines.append('\t' + '<rule>')
+            lines.append('\t\tkey message')
+            lines.append('\t\tpattern '+ val)
+            if key != 'clear':
+                lines.append('\t\ttag '+ source_tag + key)
+            else:
+                print "\n \n 5375r736r5376r576r5765r76r576r576"
+                lines.append('\t\ttag clear')
+                print "\n \n 5375r736r5376r576r5765r76r576r576 \n \n "
+            lines.append('\t' + '</rule>')
+        lines.append('</match>')
+        # Add filetr for seperate rule
+        for key,val in data.get('parse',{}).iteritems():
+            if key != 'clear':
+                lines.append('\n<filter ' + source_tag + key + '>')
+                lines.extend(['\t@type parser', '\tkey_name message', '\t<parse>'])
+                lines.append('\t\texpression ' + val)
+                lines.extend(['\t\t@type regexp', '\t</parse>', '</filter>'])
     else:
-        lines.append('\n<filter ' + source_tag + '*>')
-    lines.extend(['\t@type parser', '\tkey_name message', '\t<parse>'])
-    for key, val in data.get('parse', {}).iteritems():
-        if key == "expressions":
-            for v in val:
-                lines.append('\t\t' + "<pattern>")
-                lines.append('\t\t\t' + 'format regexp')
-                lines.append('\t\t\t' + 'expression ' + v)
-                lines.append('\t\t' + "</pattern>")
-            continue
-        lines.append('\t\t' + key  + ' ' + val)
-    lines.extend(['\t</parse>', '</filter>'])
-
+        # Add parser filter. if data.get('match').has_key('tag'):
+        if 'tag' in data.get('match'):
+            lines.append('\n<filter ' + source_tag + '.' +
+                data.get('match').get('tag', []) + '>')
+        else:
+            lines.append('\n<filter ' + source_tag + '*>')
+        lines.extend(['\t@type parser', '\tkey_name message', '\t<parse>'])
+        for key, val in data.get('parse', {}).iteritems():
+            if key == "expressions":
+                for v in val:
+                    lines.append('\t\t' + "<pattern>")
+                    lines.append('\t\t\t' + 'format regexp')
+                    lines.append('\t\t\t' + 'expression ' + v)
+                    lines.append('\t\t' + "</pattern>")
+                continue
+            lines.append('\t\t' + key  + ' ' + val)
+        lines.extend(['\t</parse>', '</filter>'])
+        
     # Add record-transormation filter. if data.get('match').has_key('tag'):
     if 'tag' in data.get('match'):
         lines.append('\n<filter ' + source_tag + '.' + data.get('match').get('tag', []) + '>')
@@ -109,11 +137,8 @@ def configure_plugin_file(data):
     lines.extend(['\t@type record_transformer', '\t<record>'])
     for key, val in data.get('transform', {}).iteritems():
         lines.append('\t\t' + key + ' \"' + val + '\"')
-
-    for tag_key, tag_val in tags.items():
-        lines.append('\t\t' + '_tag_' + str(tag_key) + ' ' + '"' + str(tag_val) + '"')
     lines.extend(['\t</record>', '</filter>'])
-
+    
     # Add grep filter.
     if data.get('usr_filter', None):
         lines.append('\n<filter ' + source_tag + '*>')
@@ -123,18 +148,14 @@ def configure_plugin_file(data):
             count = count + 1
             lines.append('\tregexp' + str(count) + ' ' + str(key) + ' ' + str(value))
         lines.append('</filter>')
-
     # Add match. if data.get('match').has_key('tag'):
     for x_targets in targets:
-	print "***************** ----->>>"
-	print x_targets
         if "status" not in x_targets:
             if 'tag' in data.get('match'):
                 lines.append('\n<match ' + source_tag + '.' + data.get('match').get('tag') + '>')
                 data.get('match').pop('tag')
             else:
                 lines.append('\n<match ' + source_tag + '*>')
-
             for key, val in x_targets.iteritems():
                 if key == "type":
                     key = "@" + key
@@ -143,13 +164,22 @@ def configure_plugin_file(data):
                 if key == "enable":
                     continue
                 lines.append('\t' + key + ' ' + val)
-            lines.append('\t' + 'type_name' + ' ' + DOCUMENT)
+            lines.append('\t' + 'type_name' + ' _doc')
 
             for key, val in data.get('match', {}).iteritems():
                 lines.append('\t' + str(key) + ' ' + str(val))
             lines.append('</match>')
+
+    # Add match, if clear is present in rewrite tag filter
+	if 'rewrite_tag_filter' in data and 'clear' in data.get('rewrite_tag_filter',{}):
+	    lines.append('\n<match clear>')
+	    lines.append('\t@type null')
+	    lines.append('</match>')
+
     conf_filename = "./" + data.get('name')
     plugin_post_data.append((conf_filename, '\n'.join(lines)))
+    print "***********************************************************************************************"
+    print plugin_post_data
     return True
 
 def generate_plugins():
@@ -167,10 +197,30 @@ def generate_plugins():
             configure_plugin_file(x_plugin)
     return True
 
+def file_writer(filepath, data):
+    try:
+        fout = open(filepath, 'w')  # creates the file where the uploaded file should be stored
+        fout.write(data)  # writes the uploaded file to the newly created file.
+        fout.close()  # closes the file, upload complete.
+        return True
+    except:
+        print("Error in File Writting " + str(filepath))
+        return False
+
+def create_conf_files():
+    for cnf in plugin_post_data:
+        file_writer(cnf[0], cnf[1])
+
 logger_user_input = read_json_file()
 tags = logger_user_input.get('logging').get('tags')
 targets = logger_user_input.get('targets')
 #print("Workload : "+str(logger_user_input))
 plugin_config = get_fluentd_plugins_mapping()
+print "Plugin Mapping"
+print "*********************"
+print plugin_config
+#print json.dumps(plugin_config, indent=4, sort_keys=True)
+print "************************"
 #print("--> plugin Config : \n"+str(plugin_config))
 generate_plugins()
+create_conf_files()

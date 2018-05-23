@@ -2,11 +2,9 @@
   "targets": [
     {
       "type": "elasticsearch",
-      "config": {
-        "index": "fluentd",
-        "host": "10.11.100.52",
-        "port": 9200
-      },
+      "index": "fluentd",
+      "host": "10.11.100.45",
+      "port": "9200",
       "name": "default-es"
     }
   ],
@@ -23,11 +21,8 @@
             "plugins": [
               {
                 "config": {
-                    "filters":{
-                        "level" : "LOG"
-                    }
                 },
-                "name": "linux-syslog"
+                "name": "elasticsearch"
               }
             ]
           },
